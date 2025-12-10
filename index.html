@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typhoon Tino Relief Fund | Education & Impact</title>
+    <style>
+        /* --- 1. RESET & VARS --- */
+        :root {
+            --primary: #2180a5; /* Teal */
+            --primary-dark: #1a6684;
+            --accent: #ff6b35; /* Orange */
+            --accent-hover: #e85a25;
+            --bg-light: #f8f9fa;
+            --bg-dark: #2c3e50;
+            --text-main: #333;
+            --text-light: #666;
+            --white: #ffffff;
+            --yellow-light: #fff3cd;
+            --yellow-border: #ffeeba;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; color: var(--text-main); background-color: var(--bg-light); }
+        a { text-decoration: none; }
+        ul { list-style: none; }
+
+        /* --- 2. UTILITIES --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .text-center { text-align: center; }
+        .flex-center { display: flex; justify-content: center; align-items: center; }
+        .badge { background: #e2f5ec; color: #218838; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 0.9rem; display: inline-block; margin-bottom: 10px; }
+        .highlight-box { background-color: var(--yellow-light); border: 1px solid var(--yellow-border); padding: 15px; border-radius: 8px; margin: 20px 0; text-align: center; }
+        
+        /* Buttons */
+        .btn { display: inline-block; padding: 12px 24px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: transform 0.2s, background 0.2s; border: none; font-size: 1rem; }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-primary { background-color: var(--accent); color: white; }
+        .btn-primary:hover { background-color: var(--accent-hover); }
+        .btn-secondary { background-color: transparent; border: 2px solid var(--primary); color: var(--primary); margin-left: 10px; }
+        .btn-block { display: block; width: 100%; text-align: center; }
+
+        /* --- 3. NAVIGATION --- */
+        nav { background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; padding: 15px 0; }
+        nav .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); }
+
+        /* --- 4. HERO --- */
+        header { padding: 60px 0 40px; text-align: center; background: white; }
+        header h1 { font-size: 2.5rem; color: var(--bg-dark); margin-bottom: 15px; line-height: 1.2; }
+        header .subhead { font-size: 1.2rem; color: var(--text-light); max-width: 700px; margin: 0 auto 30px; }
+        .trust-badges { margin-top: 30px; font-size: 0.9rem; color: var(--text-light); }
+        .trust-badges span { margin: 0 10px; }
+
+        /* --- 5. PROOF & METRICS --- */
+        section { padding: 60px 0; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 25px; border-radius: 8px; border: 1px solid #eee; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; }
+        .card h3 { font-size: 1.2rem; margin-bottom: 10px; color: var(--primary); }
+        .metric-val { font-size: 2rem; font-weight: bold; color: var(--bg-dark); display: block; margin-bottom: 5px; }
+
+        /* --- 6. PROGRESS BAR --- */
+        #progress { background: white; }
+        .progress-container { background: #eee; height: 30px; border-radius: 15px; overflow: hidden; position: relative; margin: 20px 0; }
+        .progress-bar { background: linear-gradient(90deg, var(--primary), var(--accent)); width: 10%; height: 100%; transition: width 1s ease-in-out; }
+        .milestones { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-light); text-align: center; }
+        .milestones li { width: 25%; position: relative; }
+        .milestones li::before { content: '|'; display: block; font-weight: bold; margin-bottom: 5px; }
+
+        /* --- 7. PRODUCTS (The Core) --- */
+        #products { background: var(--bg-light); }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 40px; }
+        
+        .product-card { 
+            background: white; border-radius: 12px; padding: 30px; 
+            border: 1px solid #ddd; position: relative; 
+            transition: all 0.3s ease; display: flex; flex-direction: column;
+        }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-color: var(--primary); }
+        .product-card.featured { border: 2px solid var(--accent); }
+        
+        .prod-title { font-size: 1.4rem; font-weight: bold; margin-bottom: 5px; color: var(--bg-dark); }
+        .prod-price { font-size: 2rem; color: var(--primary); font-weight: 800; margin-bottom: 20px; }
+        .prod-features { margin-bottom: 20px; flex-grow: 1; }
+        .prod-features li { margin-bottom: 8px; font-size: 0.95rem; }
+        
+        /* Toggles inside Card */
+        .toggle-group { background: #f0f4f8; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        .toggle-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .toggle-row:last-child { margin-bottom: 0; }
+        .toggle-label { font-size: 0.9rem; font-weight: 600; cursor: pointer; }
+        .toggle-desc { font-size: 0.75rem; display: block; color: #777; font-weight: normal; }
+        
+        /* Custom Switch */
+        .switch { position: relative; display: inline-block; width: 40px; height: 22px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--accent); }
+        input:checked + .slider:before { transform: translateX(18px); }
+
+        /* --- 8. DYNAMIC FORM --- */
+        #form-section { background: var(--bg-dark); color: white; padding: 60px 0; scroll-margin-top: 80px; }
+        .form-container { max-width: 600px; margin: 0 auto; background: white; color: var(--text-main); padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .form-header { text-align: center; margin-bottom: 30px; }
+        .selected-summary { background: var(--primary); color: white; padding: 10px; border-radius: 6px; text-align: center; margin-bottom: 20px; font-weight: bold; }
+        
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
+        .form-control { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 6px; font-size: 1rem; transition: border 0.3s; }
+        .form-control:focus { border-color: var(--primary); outline: none; }
+        
+        .clarification { font-size: 0.85rem; color: #666; margin-top: 5px; line-height: 1.4; background: #f9f9f9; padding: 8px; border-left: 3px solid var(--accent); }
+
+        /* --- 9. FOOTER --- */
+        footer { background: #222; color: #999; padding: 40px 0; font-size: 0.9rem; text-align: center; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .grid-3 { grid-template-columns: 1fr; }
+            .progress-container { height: 20px; }
+            .milestones { font-size: 0.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-inner">
+            <div class="logo">🌏 Relief Fund</div>
+            <button class="btn btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})">DONATE NOW</button>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <div class="badge">✅ ₱100,000 DONATED - I PUT MY MONEY WHERE MY MOUTH IS</div>
+            <h1>I Donated ₱100K.<br>Now Let's Build Something Bigger.</h1>
+            <p class="subhead">Learn to build an Etsy business. 100% of your purchase buys relief goods for Typhoon Tino victims. Education + Real Impact.</p>
+            <div>
+                <button class="btn btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})">DONATE NOW</button>
+                <button class="btn btn-secondary">SHARE CAMPAIGN</button>
+            </div>
+            <div class="trust-badges">
+                <span>🔒 Secure Stripe</span> | <span>📋 100% Transparent</span> | <span>❤️ Real Impact</span>
+            </div>
+        </div>
+    </header>
+
+    <section id="proof">
+        <div class="container">
+            <div class="grid-3">
+                <div class="card">
+                    <h3>💰 Money Given</h3>
+                    <span class="metric-val">₱100,000</span>
+                    <p>Personal donation already deployed.</p>
+                </div>
+                <div class="card">
+                    <h3>🎥 Visibility</h3>
+                    <span class="metric-val">20+ Videos</span>
+                    <p>Viral content driving traffic now.</p>
+                </div>
+                <div class="card">
+                    <h3>📊 Transparency</h3>
+                    <span class="metric-val">Public</span>
+                    <p>Open ledger of every peso spent.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: white;">
+        <div class="container" style="max-width: 800px;">
+            <div class="highlight-box">
+                <strong>CRITICAL DIFFERENCE:</strong> This is NOT typical charity. This is Education + Relief.
+            </div>
+            <p style="margin-bottom: 20px;">We aren't just asking for handouts. We are selling our premium Etsy Dropshipping education—the same system that has trained 700+ students in Israel. We are taking 100% of that revenue and buying relief goods.</p>
+            <p>You get a career. They get survival. It's the ultimate win-win.</p>
+            <div class="highlight-box">
+                <strong>THE MATH:</strong> 500 Filipinos × ₱2,000 avg = <strong>₱1,000,000 in relief</strong>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container text-center">
+            <h2>The System You Will Learn</h2>
+            <div class="grid-3" style="margin-top: 30px;">
+                <div class="card">
+                    <span class="metric-val">700+</span>
+                    <p>Students Trained</p>
+                </div>
+                <div class="card">
+                    <span class="metric-val">$3,000+</span>
+                    <p>Avg Student Monthly Profit (USD)</p>
+                </div>
+                <div class="card">
+                    <span class="metric-val">100%+</span>
+                    <p>ROI in First 60 Days</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="progress">
+        <div class="container">
+            <h2 class="text-center">Relief Goal: ₱1,000,000</h2>
+            <div class="progress-container">
+                <div class="progress-bar" style="width: 10%;"></div> </div>
+            <ul class="milestones">
+                <li>₱250k<br>Emergency Food</li>
+                <li>₱500k<br>Shelter Mats</li>
+                <li>₱750k<br>School Supplies</li>
+                <li>₱1M<br>Recovery</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="products">
+        <div class="container">
+            <h2 class="text-center" style="margin-bottom: 10px;">Select Your Impact Tier</h2>
+            <p class="text-center" style="margin-bottom: 40px;">Select a plan to unlock the form below.</p>
+            
+            <div class="products-grid">
+                
+                <div class="product-card" id="card-flex">
+                    <div class="prod-title">FLEX DONATION</div>
+                    <div class="prod-price">₱30+</div>
+                    <ul class="prod-features">
+                        <li>✅ Pure Donation (100% Relief)</li>
+                        <li>✅ Community Group Access</li>
+                        <li>✅ Messenger Support</li>
+                        <li>❌ No Course Access</li>
+                    </ul>
+                    <div class="toggle-group">
+                        <div class="toggle-row">
+                            <label class="toggle-label" for="flex-pub">
+                                Public? <span class="toggle-desc">Show name on wall</span>
+                            </label>
+                            <label class="switch">
+                                <input type="checkbox" id="flex-pub" onchange="syncToggle('flex', 'public')">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-row">
+                            <label class="toggle-label" for="flex-schol">
+                                Scholarship? <span class="toggle-desc">Donate value to student</span>
+                            </label>
+                            <label class="switch">
+                                <input type="checkbox" id="flex-schol" onchange="syncToggle('flex', 'scholarship')">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-block" onclick="selectProduct('flex')">DONATE NOW</button>
+                </div>
+
+                <div class="product-card featured" id="card-basic">
+                    <div class="badge" style="background:var(--accent); color:white; margin-bottom:5px;">MOST POPULAR</div>
+                    <div class="prod-title">BASIC BUNDLE</div>
+                    <div class="prod-price">₱499</div>
+                    <ul class="prod-features">
+                        <li>✅ 8-Hour Comprehensive Course</li>
+                        <li>✅ Supplier Partnership List</li>
+                        <li>✅ Top 10 Niches List</li>
+                        <li>✅ Lifetime Access</li>
+                    </ul>
+                    <div class="toggle-group">
+                        <div class="toggle-row">
+                            <label class="toggle-label" for="basic-pub">
+                                Public? <span class="toggle-desc">Show name on wall</span>
+                            </label>
+                            <label class="switch">
+                                <input type="checkbox" id="basic-pub" onchange="syncToggle('basic', 'public')">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-row">
+                            <label class="toggle-label" for="basic-schol">
+                                Scholarship? <span class="toggle-desc">Give course to a teen</span>
+                            </label>
+                            <label class="switch">
+                                <input type="checkbox" id="basic-schol" onchange="syncToggle('basic', 'scholarship')">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-block" onclick="selectProduct('basic')">GET BASIC BUNDLE</button>
+                </div>
+
+                <div class="product-card" id="card-trio">
+                    <div class="prod-title">THE TRIO</div>
+                    <div class="prod-price">₱3,499</div>
+                    <ul class="prod-features">
+                        <li>✅ <strong>Everything in Basic</strong></li>
+                        <li>✅ 3x 1-on-1 Mentor Calls</li>
+                        <li>✅ 1 Product Ready-to-Upload</li>
+                        <li>✅ Strategy Session</li>
+                    </ul>
+                    <div class="toggle-group">
+                        <div class="toggle-row">
+                            <label class="toggle-label" for="trio-pub">
+                                Public? <span class="toggle-desc">Show name on wall</span>
+                            </label>
+                            <label class="switch">
+                                <input type="checkbox" id="trio-pub" onchange="syncToggle('trio', 'public')">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-row">
+                            <label class="toggle-label" for="trio-schol">
+                                Scholarship? <span class="toggle-desc">Give Basic + 1 Call</span>
+                            </label>
+                            <label class="switch">
+                                <input type="checkbox" id="trio-schol" onchange="syncToggle('trio', 'scholarship')">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-block" onclick="selectProduct('trio')">GET THE TRIO</button>
+                </div>
+
+                <div class="product-card" id="card-money">
+                    <div class="prod-title">MONEY IS ON THE WAY</div>
+                    <div class="prod-price">₱9,999</div>
+                    <ul class="prod-features">
+                        <li>✅ <strong>Everything in Trio</strong></li>
+                        <li>✅ 10x Mentor Calls</li>
+                        <li>✅ <strong>Full Shop Setup (Done For You)</strong></li>
+                        <li>✅ Logo, Banner, Niche & Product</li>
+                    </ul>
+                    <div class="toggle-group">
+                        <div class="toggle-row">
+                            <label class="toggle-label" for="money-pub">
+                                Public? <span class="toggle-desc">Show name on wall</span>
+                            </label>
+                            <label class="switch">
+                                <input type="checkbox" id="money-pub" onchange="syncToggle('money', 'public')">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-row">
+                            <label class="toggle-label" for="money-schol">
+                                Scholarship? <span class="toggle-desc">Give Basic + 1 Call</span>
+                            </label>
+                            <label class="switch">
+                                <input type="checkbox" id="money-schol" onchange="syncToggle('money', 'scholarship')">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-block" onclick="selectProduct('money')">GET "MONEY" TIER</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="form-section">
+        <div class="container">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Complete Your Contribution</h2>
+                    <p>Your details are secure. 100% goes to relief.</p>
+                </div>
+
+                <div id="selection-summary" class="selected-summary">
+                    Please select a product above.
+                </div>
+
+                <form id="donationForm" onsubmit="handleFormSubmit(event)">
+                    
+                    <div id="dynamic-fields"></div>
+
+                    <div style="background:#f8f9fa; padding:15px; border-radius:8px; margin-bottom:20px;">
+                        <div class="form-group toggle-row" style="margin-bottom:10px;">
+                            <label class="toggle-label">Make Contribution Public?</label>
+                            <label class="switch">
+                                <input type="checkbox" id="form-public">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="clarification" id="clarification-public" style="display:none;">
+                            When you select PUBLIC, your name and donation amount will appear on our public donor wall. This inspires others!
+                        </div>
+
+                        <div class="form-group toggle-row" style="margin-top:15px;">
+                            <label class="toggle-label">Scholarship Mode?</label>
+                            <label class="switch">
+                                <input type="checkbox" id="form-scholarship">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="clarification" id="clarification-scholarship" style="display:none;">
+                            <strong>Pay it forward:</strong> You still get full access, but we also grant a scholarship copy to a student who can't afford it.
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" id="submit-btn" disabled style="opacity: 0.5; cursor: not-allowed;">SELECT A PLAN ABOVE</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Typhoon Tino Relief Fund. Transparency is our priority.</p>
+            <p style="margin-top:10px;"><a href="#" style="color:#999;">Privacy Policy</a> | <a href="#" style="color:#999;">Contact Us</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // State Management
+        let appState = {
+            product: null, // 'flex', 'basic', 'trio', 'money'
+            price: 0,
+            public: false,
+            scholarship: false
+        };
+
+        const products = {
+            flex: { name: "Flex Donation", priceLabel: "Custom Amount", min: 30 },
+            basic: { name: "Basic Bundle", priceLabel: "₱499", val: 499 },
+            trio: { name: "The Trio", priceLabel: "₱3,499", val: 3499 },
+            money: { name: "Money Is On The Way", priceLabel: "₱9,999", val: 9999 }
+        };
+
+        // 1. Handle Selection from Product Cards
+        function selectProduct(pid) {
+            appState.product = pid;
+            appState.price = products[pid].val || 0;
+            
+            // Sync toggles from card to state
+            const cardPub = document.getElementById(`${pid}-pub`).checked;
+            const cardSchol = document.getElementById(`${pid}-schol`).checked;
+            appState.public = cardPub;
+            appState.scholarship = cardSchol;
+
+            // Update Form UI
+            updateFormUI();
+
+            // Scroll to form
+            document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 2. Sync Toggles Logic
+        function syncToggle(pid, type) {
+            // If user clicks toggle on card, we just update the specific element ID if needed later
+            // But main logic happens on selectProduct
+        }
+
+        // 3. Render Form Based on Selection
+        function updateFormUI() {
+            const summaryDiv = document.getElementById('selection-summary');
+            const dynamicDiv = document.getElementById('dynamic-fields');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            // Update Summary
+            summaryDiv.innerHTML = `Selected: ${products[appState.product].name} (${products[appState.product].priceLabel})`;
+            
+            // Update Form Toggles visual state
+            document.getElementById('form-public').checked = appState.public;
+            document.getElementById('form-scholarship').checked = appState.scholarship;
+            toggleClarifications();
+
+            // Enable Button
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = "1";
+            submitBtn.style.cursor = "pointer";
+            submitBtn.innerText = `PROCEED TO PAYMENT`;
+
+            // Inject Fields
+            let html = `
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" class="form-control" required placeholder="Juana Dela Cruz">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" class="form-control" required placeholder="juana@example.com">
+                </div>
+            `;
+
+            if (appState.product === 'flex') {
+                html += `
+                    <div class="form-group">
+                        <label>Donation Amount (₱ PHP)</label>
+                        <input type="number" class="form-control" min="30" value="100" required>
+                        <small style="color:#666">Minimum ₱30 for processing fees.</small>
+                    </div>
+                `;
+            }
+
+            if (appState.product === 'trio' || appState.product === 'money') {
+                html += `
+                    <div class="form-group">
+                        <label>Phone Number (for Mentor Calls)</label>
+                        <input type="tel" class="form-control" required placeholder="+63 917 ...">
+                    </div>
+                `;
+            }
+
+            if (appState.product === 'money') {
+                html += `
+                    <div class="form-group">
+                        <label>Preferred Timezone for Calls</label>
+                        <select class="form-control">
+                            <option>Philippine Time (PHT)</option>
+                            <option>Israel Standard Time (IST)</option>
+                            <option>US Eastern (EST)</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                `;
+            }
+
+            dynamicDiv.innerHTML = html;
+        }
+
+        // 4. Handle Form Toggles (Clarification Text)
+        const formPub = document.getElementById('form-public');
+        const formSchol = document.getElementById('form-scholarship');
+
+        function toggleClarifications() {
+            document.getElementById('clarification-public').style.display = formPub.checked ? 'block' : 'none';
+            document.getElementById('clarification-scholarship').style.display = formSchol.checked ? 'block' : 'none';
+            
+            // Update state
+            appState.public = formPub.checked;
+            appState.scholarship = formSchol.checked;
+        }
+
+        formPub.addEventListener('change', toggleClarifications);
+        formSchol.addEventListener('change', toggleClarifications);
+
+        // 5. Submit Handler
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            const originalText = btn.innerText;
+            
+            btn.innerText = "PROCESSING...";
+            btn.disabled = true;
+
+            // SIMULATE API CALL / STRIPE REDIRECT
+            setTimeout(() => {
+                alert(`Redirecting to Stripe for ${products[appState.product].name}...\n\nData captured:\nPublic: ${appState.public}\nScholarship: ${appState.scholarship}`);
+                // Here you would window.location.href = "YOUR_STRIPE_LINK";
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }, 1500);
+        }
+
+    </script>
+</body>
+</html>
